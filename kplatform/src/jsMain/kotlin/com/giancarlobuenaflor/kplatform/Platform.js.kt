@@ -1,7 +1,7 @@
 package com.giancarlobuenaflor.kplatform
 
-import kotlin.js.collections.JsMap
-import kotlin.js.collections.toMap
+import kotlin.js.collections.JsArray
+import kotlin.js.collections.toList
 
 private fun isNode(): Boolean {
   return jsTypeOf(js("process")) != "undefined"
@@ -104,9 +104,10 @@ internal actual fun getCompilationTarget(): CompilationTarget {
 
 @OptIn(ExperimentalJsCollectionsApi::class)
 private fun getNodeEnvironmentMap(): Map<String, String> {
-  console.log(js("process.env"))
-  val env = js("process.env")
-  return env.toMap()
+  val env: dynamic = js("process.env")
+  val keys = js("Object.keys(env)") as JsArray<String>
+  val kotlinKeys = keys.toList()
+  return buildMap(kotlinKeys.size) { kotlinKeys.forEach { key -> this[key] = env[key] as String } }
 }
 
 internal actual fun getEnvironmentMap(): Map<String, String> {

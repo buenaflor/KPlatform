@@ -9,6 +9,7 @@ plugins {
 }
 
 group = project.property("group") as String
+
 version = project.property("version") as String
 
 kotlin {
@@ -72,7 +73,8 @@ mavenPublishing {
 
   pom {
     name = "KPlatform"
-    description = "A lightweight pluggable Kotlin Multiplatform library that lets you use runtime information of the system."
+    description =
+        "A lightweight pluggable Kotlin Multiplatform library that lets you use runtime information of the system."
     inceptionYear = "2025"
     url = "https://github.com/buenaflor/kplatform"
     licenses {
@@ -90,8 +92,6 @@ mavenPublishing {
         email = "giancarlobuenaflor97@gmail.com"
       }
     }
-    scm {
-      url = "https://github.com/buenaflor/kplatform"
-    }
+    scm { url = "https://github.com/buenaflor/kplatform" }
   }
 }

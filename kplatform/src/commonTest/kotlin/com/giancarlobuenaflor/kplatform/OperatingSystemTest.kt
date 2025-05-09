@@ -1,11 +1,9 @@
 // TODO: who needs tests?
-
-//package com.giancarlobuenaflor.kplatform
 //
-//import kotlin.test.Test
-//import kotlin.test.assertTrue
+// import kotlin.test.Test
+// import kotlin.test.assertTrue
 //
-//class OperatingSystemTest {
+// class OperatingSystemTest {
 //  private val platform = KPlatform()
 //
 //  @Test
@@ -33,4 +31,4 @@
 //    val version = platform.operatingSystemVersion
 //    assertTrue(version.isNotEmpty(), "Operating system version is empty")
 //  }
-//}
+// }
