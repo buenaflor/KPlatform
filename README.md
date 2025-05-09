@@ -4,7 +4,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.giancarlobuenaflor/kplatform)](https://central.sonatype.com/artifact/com.giancarlobuenaflor/kplatform)
 [![License](https://img.shields.io/github/license/buenaflor/kplatform?color=blue)](https://github.com/buenaflor/kplatform/blob/main/LICENSE)
 
-**KPlatform** is a lightweight, pluggable Kotlin Multiplatform (KMP) library that exposes runtime
+**KPlatform** is a lightweight, pluggable Kotlin Multiplatform (KMP) library that exposes
 information about _where_ your code is running so **you can write platform-specific logic right
 from `commonMain`**—without scattering `expect/actual` declarations or creating extra source-sets
 when you don’t actually need platform APIs.
@@ -32,3 +32,10 @@ when you don’t actually need platform APIs.
 
 Add the dependency to the **`commonMain`** source-set in your Multiplatform `build.gradle(.kts)`
 file:
+
+```kotlin
+commonMain.dependencies {
+  implementation("com.giancarlobuenaflor:kplatform:<version>")
+}
+```
+
