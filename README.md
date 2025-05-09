@@ -1,8 +1,8 @@
 # KPlatform
 
-[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin Multiplatform")](https://kotlinlang.org/docs/multiplatform.html)
-[![Maven Central](https://img.shields.io/maven-central/v/com.giancarlobuenaflor/kplatform")](https://central.sonatype.com/artifact/com.giancarlobuenaflor/kplatform)
-[![License](https://img.shields.io/github/license/buenaflor/kplatform?color=blue")](https://github.com/buenaflor/kplatform/blob/main/LICENSE)
+[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org/docs/multiplatform.html)
+[![Maven Central](https://img.shields.io/maven-central/v/com.giancarlobuenaflor/kplatform)](https://central.sonatype.com/artifact/com.giancarlobuenaflor/kplatform)
+[![License](https://img.shields.io/github/license/buenaflor/kplatform?color=blue)](https://github.com/buenaflor/kplatform/blob/main/LICENSE)
 
 **KPlatform** is a lightweight, pluggable Kotlin Multiplatform (KMP) library that exposes runtime
 information about _where_ your code is running so **you can write platform-specific logic right
