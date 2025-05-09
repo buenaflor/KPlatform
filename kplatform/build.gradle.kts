@@ -7,6 +7,9 @@ plugins {
   `maven-publish`
 }
 
+group = project.property("group") as String
+version = project.property("version") as String
+
 kotlin {
   explicitApi()
 
@@ -33,25 +36,17 @@ kotlin {
     nodejs()
   }
 
-  listOf(
-          iosX64(),
-          iosArm64(),
-          iosSimulatorArm64(),
-          macosArm64(),
-          macosX64(),
-          tvosX64(),
-          tvosArm64(),
-          tvosSimulatorArm64(),
-          watchosX64(),
-          watchosArm64(),
-          watchosSimulatorArm64(),
-      )
-      .forEach {
-        it.binaries.framework {
-          baseName = "shared"
-          isStatic = true
-        }
-      }
+  iosX64()
+  iosArm64()
+  iosSimulatorArm64()
+  macosArm64()
+  macosX64()
+  tvosX64()
+  tvosArm64()
+  tvosSimulatorArm64()
+  watchosX64()
+  watchosArm64()
+  watchosSimulatorArm64()
 
   sourceSets { commonTest.dependencies { implementation(libs.kotlin.test) } }
 }

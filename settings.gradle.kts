@@ -15,6 +15,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "KPlatform"
+rootProject.name = "kplatform-root"
 
-include(":shared")
+include(":kplatform")

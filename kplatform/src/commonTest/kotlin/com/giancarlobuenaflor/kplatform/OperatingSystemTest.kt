@@ -1,4 +1,3 @@
-// shared/src/commonTest/kotlin/com/giancarlobuenaflor/kplatform/OperatingSystemTest.kt
 package com.giancarlobuenaflor.kplatform
 
 import kotlin.test.Test

@@ -23,7 +23,7 @@ if (platform.isAndroid) {
 Add the dependency to the **commonMain** source set in your multiplatform `build.gradle(.kts)`:
 
 ```kts
-implementation("com.giancarlobuenaflor:kplatform:0.1.0")
+implementation("com.giancarlobuenaflor:kplatform-core:<version>")
 ```
 
 ## Usage
