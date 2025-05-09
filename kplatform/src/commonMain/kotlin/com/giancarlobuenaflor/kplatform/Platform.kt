@@ -11,6 +11,16 @@ public interface Platform {
    * The possible return values are available from [operatingSystemValues], and there are constants
    * for each of the platforms to use in switch statements or conditionals (See [ANDROID], [IOS],
    * [MACOS], [TVOS], [WATCHOS], [WINDOWS] and [LINUX]).
+   *
+   * Example:
+   * ```kotlin
+   * val platform = KPlatform()
+   *
+   * when (platform.operatingSystem) {
+   *   Platform.ANDROID -> println("This is an Android device")
+   *   Platform.IOS -> println("This is an iOS device")
+   * }
+   * ```
    */
   public val operatingSystem: String
 
