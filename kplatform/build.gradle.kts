@@ -6,6 +6,7 @@ plugins {
   alias(libs.plugins.kotlinMultiplatform)
   alias(libs.plugins.androidLibrary)
   alias(libs.plugins.vanniktechMavenPublish)
+  alias(libs.plugins.dokka)
 }
 
 group = project.property("group") as String
