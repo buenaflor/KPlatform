@@ -1,5 +1,5 @@
 package com.giancarlobuenaflor.kplatform
 
-internal actual fun getOperatingSystem(): String {
+internal actual fun getOperatingSystemString(): String {
   return "macos"
 }

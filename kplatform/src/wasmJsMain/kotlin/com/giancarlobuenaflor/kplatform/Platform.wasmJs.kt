@@ -8,7 +8,7 @@ public fun getUserAgent(): String = js("navigator.userAgent")
 
 public fun isNode(): Boolean = js("typeof process !== 'undefined'")
 
-internal actual fun getOperatingSystem(): String {
+internal actual fun getOperatingSystemString(): String {
   // Node.js ➜ parse from navigator.userAgent
   if (isNode()) {
     return when (getNodeOperatingSystem()) {
@@ -22,17 +22,17 @@ internal actual fun getOperatingSystem(): String {
   // Browser ➜ parse from navigator.userAgent
   val userAgent = getUserAgent()
   return when {
-    userAgent.contains("Android", ignoreCase = true) -> Platform.ANDROID
+    userAgent.contains("Android", ignoreCase = true) -> "android"
     userAgent.contains("iPhone", ignoreCase = true) ||
-        userAgent.contains("iPad", ignoreCase = true) -> Platform.IOS
-    userAgent.contains("Mac OS", ignoreCase = true) -> Platform.MACOS
-    userAgent.contains("Windows", ignoreCase = true) -> Platform.WINDOWS
-    userAgent.contains("Linux", ignoreCase = true) -> Platform.LINUX
+        userAgent.contains("iPad", ignoreCase = true) -> "ios"
+    userAgent.contains("Mac OS", ignoreCase = true) -> "macos"
+    userAgent.contains("Windows", ignoreCase = true) -> "windows"
+    userAgent.contains("Linux", ignoreCase = true) -> "linux"
     else -> "unknown"
   }
 }
 
-internal actual fun getOperatingSystemVersion(): String {
+internal actual fun getOperatingSystemVersionString(): String {
   if (isNode()) {
     return getNodeOperatingSystemVersion()
   }
@@ -95,4 +95,8 @@ internal actual fun getOperatingSystemVersion(): String {
   }
 
   return "unknown"
+}
+
+internal actual fun getCompilationTarget(): CompilationTarget {
+  return CompilationTarget.WASMJS
 }

@@ -6,125 +6,88 @@ package com.giancarlobuenaflor.kplatform
  */
 public interface Platform {
   /**
-   * A string representing the operating system.
-   *
-   * The possible return values are available from [operatingSystemValues], and there are constants
-   * for each of the platforms to use in switch statements or conditionals (See [ANDROID], [IOS],
-   * [MACOS], [TVOS], [WATCHOS], [WINDOWS] and [LINUX]).
-   *
-   * Example:
-   * ```kotlin
-   * val platform = KPlatform()
-   *
-   * when (platform.operatingSystem) {
-   *   Platform.ANDROID -> println("This is an Android device")
-   *   Platform.IOS -> println("This is an iOS device")
-   * }
-   * ```
+   * The compilation target of the current platform.
    */
-  public val operatingSystem: String
+  public val compilationTarget: CompilationTarget
 
-  /** A string representing the version of the operating system or platform. */
-  public val operatingSystemVersion: String
-
-  /** True if the operating system is Android. */
-  public val isAndroid: Boolean
-    get() = operatingSystem == ANDROID
-
-  /** True if the operating system is iOS. */
-  public val isIOS: Boolean
-    get() = operatingSystem == IOS
-
-  /** True if the operating system is macOS. */
-  public val isMacOS: Boolean
-    get() = operatingSystem == MACOS
-
-  /** True if the operating system is Android. */
-  public val isTvOS: Boolean
-    get() = operatingSystem == MACOS
-
-  /** True if the operating system is watchOS. */
-  public val isWatchOS: Boolean
-    get() = operatingSystem == WATCHOS
-
-  /** True if the operating system is Windows. */
-  public val isWindows: Boolean
-    get() = operatingSystem == WINDOWS
-
-  /** True if the operating system is Linux. */
-  public val isLinux: Boolean
-    get() = operatingSystem == LINUX
-
-  public companion object {
-    /** A list of the possible values that [operatingSystem] can return. */
-    public val operatingSystemValues: List<String> =
-        listOf(LINUX, MACOS, WINDOWS, ANDROID, IOS, TVOS, WATCHOS)
-
-    /**
-     * A string constant to compare with [operatingSystem] to see if the platform is Android.
-     *
-     * Useful in case statements when switching on [operatingSystem].
-     *
-     * To just check if the platform is Android, use [isAndroid].
-     */
-    public const val ANDROID: String = "android"
-
-    /**
-     * A string constant to compare with [operatingSystem] to see if the platform is iOS.
-     *
-     * Useful in case statements when switching on [operatingSystem].
-     *
-     * To just check if the platform is iOS, use [isIOS].
-     */
-    public const val IOS: String = "ios"
-
-    /**
-     * A string constant to compare with [operatingSystem] to see if the platform is macOS.
-     *
-     * Useful in case statements when switching on [operatingSystem].
-     *
-     * To just check if the platform is macOS, use [isMacOS].
-     */
-    public const val MACOS: String = "macos"
-
-    /**
-     * A string constant to compare with [operatingSystem] to see if the platform is tvOS.
-     *
-     * Useful in case statements when switching on [operatingSystem].
-     *
-     * To just check if the platform is tvOS, use [isTvOS].
-     */
-    public const val TVOS: String = "tvos"
-
-    /**
-     * A string constant to compare with [operatingSystem] to see if the platform is watchOS.
-     *
-     * Useful in case statements when switching on [operatingSystem].
-     *
-     * To just check if the platform is watchOS, use [isWatchOS].
-     */
-    public const val WATCHOS: String = "watchos"
-
-    /**
-     * A string constant to compare with [operatingSystem] to see if the platform is Windows.
-     *
-     * Useful in case statements when switching on [operatingSystem].
-     *
-     * To just check if the platform is Windows, use [isWindows].
-     */
-    public const val WINDOWS: String = "windows"
-
-    /**
-     * A string constant to compare with [operatingSystem] to see if the platform is Linux.
-     *
-     * Useful in case statements when switching on [operatingSystem].
-     *
-     * To just check if the platform is Linux, use [isLinux].
-     */
-    public const val LINUX: String = "linux"
-  }
+  /**
+   * The runtime operating system of the current platform.
+   *
+   * This is not necessarily the same as the compilation target. For example, a JVM compiled app
+   * can run on any operating system that supports a JVM.
+   */
+  public val operatingSystem: OperatingSystem
 }
 
-internal expect fun getOperatingSystem(): String
+/**
+ * Enumeration of Kotlin Multiplatform compilation targets.
+ */
+public enum class CompilationTarget(public val targetName: String) {
+  JVM("jvm"),
+  ANDROID("androidTarget"),
+  JS("js"),
+  WASMJS("wasmjs"),
+  IOSX64("iosX64"),
+  IOSARM64("iosArm64"),
+  IOSSIMULATORARM64("iosSimulatorArm64"),
+  MACOSARM64("macosArm64"),
+  MACOSX64("macosX64"),
+  TVOSX64("tvosX64"),
+  TVOSARM64("tvosArm64"),
+  TVOSSIMULATORARM64("tvosSimulatorArm64"),
+  WATCHOSX64("watchosX64"),
+  WATCHOSARM64("watchosArm64"),
+  WATCHOSSIMULATORARM64("watchosSimulatorArm64"),
+}
 
-internal expect fun getOperatingSystemVersion(): String
+/**
+ * Enumeration of runtime operating systems.
+ */
+public sealed class OperatingSystem(
+  private val family: Family,
+  private val version: String
+) {
+  private enum class Family {
+    ANDROID, IOS, MACOS, TVOS, WATCHOS, LINUX, WINDOWS, UNKNOWN,
+  }
+
+  public data class Android(private val version: String) : OperatingSystem(Family.ANDROID, version)
+  public data class Ios(private val version: String) : OperatingSystem(Family.IOS, version)
+  public data class MacOs(private val version: String) : OperatingSystem(Family.MACOS, version)
+  public data class TvOs(private val version: String) : OperatingSystem(Family.TVOS, version)
+  public data class WatchOs(private val version: String) : OperatingSystem(Family.WATCHOS, version)
+  public data class Linux(private val version: String) : OperatingSystem(Family.LINUX, version)
+  public data class Windows(private val version: String) : OperatingSystem(Family.WINDOWS, version)
+  public data class Unknown(private val version: String) : OperatingSystem(Family.UNKNOWN, version)
+
+  public val isAndroid: Boolean get() = family == Family.ANDROID
+  public val isIOS: Boolean get() = family == Family.IOS
+  public val isMacOS: Boolean get() = family == Family.MACOS
+  public val isTvOS: Boolean get() = family == Family.TVOS
+  public val isWatchOS: Boolean get() = family == Family.WATCHOS
+  public val isLinux: Boolean get() = family == Family.LINUX
+  public val isWindows: Boolean get() = family == Family.WINDOWS
+
+  public companion object {
+    /**
+     * Build an [OperatingSystem] from the raw strings returned by the
+     * platform-specific `expect` functions.
+     */
+    public fun from(osName: String, version: String): OperatingSystem = when (osName.lowercase()) {
+      "android" -> Android(version)
+      "ios" -> Ios(version)
+      "macos" -> MacOs(version)
+      "tvos" -> TvOs(version)
+      "watchos" -> WatchOs(version)
+      "linux" -> Linux(version)
+      "windows" -> Windows(version)
+      else -> Unknown(version)
+    }
+  }
+
+  override fun toString(): String = "${family.name.lowercase()} $version"
+}
+
+internal expect fun getOperatingSystemString(): String
+internal expect fun getOperatingSystemVersionString(): String
+internal expect fun getCompilationTarget(): CompilationTarget

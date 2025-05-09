@@ -4,14 +4,14 @@ private fun isNode(): Boolean {
   return jsTypeOf(js("process")) != "undefined"
 }
 
-internal actual fun getOperatingSystem(): String {
+internal actual fun getOperatingSystemString(): String {
   // Node.js ➜ parse from process.platform
   if (isNode()) {
     val os = (js("process.platform") as String)
     return when (os) {
-      "win32" -> Platform.WINDOWS
-      "darwin" -> Platform.MACOS
-      "linux" -> Platform.LINUX
+      "win32" -> "windows"
+      "darwin" -> "macos" // always macOS assuming you can't run node on iOS :)
+      "linux" -> "linux"
       else -> "unknown"
     }
   }
@@ -19,17 +19,17 @@ internal actual fun getOperatingSystem(): String {
   // Browser ➜ parse from navigator.userAgent
   val userAgent = js("navigator.userAgent") as String
   return when {
-    userAgent.contains("Android", ignoreCase = true) -> Platform.ANDROID
+    userAgent.contains("Android", ignoreCase = true) -> "android"
     userAgent.contains("iPhone", ignoreCase = true) ||
-        userAgent.contains("iPad", ignoreCase = true) -> Platform.IOS
-    userAgent.contains("Mac OS", ignoreCase = true) -> Platform.MACOS
-    userAgent.contains("Windows", ignoreCase = true) -> Platform.WINDOWS
-    userAgent.contains("Linux", ignoreCase = true) -> Platform.LINUX
+        userAgent.contains("iPad", ignoreCase = true) -> "ios"
+    userAgent.contains("Mac OS", ignoreCase = true) -> "macos"
+    userAgent.contains("Windows", ignoreCase = true) -> "windows"
+    userAgent.contains("Linux", ignoreCase = true) -> "linux"
     else -> "unknown"
   }
 }
 
-internal actual fun getOperatingSystemVersion(): String {
+internal actual fun getOperatingSystemVersionString(): String {
   // Node.js ➜ parse from process
   if (jsTypeOf(js("process")) != "undefined") {
     return js("process.version") as String
@@ -93,4 +93,8 @@ internal actual fun getOperatingSystemVersion(): String {
   }
 
   return "unknown"
+}
+
+internal actual fun getCompilationTarget(): CompilationTarget {
+  return CompilationTarget.JS
 }

@@ -1,10 +1,23 @@
 package com.giancarlobuenaflor.kplatform
 
-/** The [Platform] implementation for the system that delegates to the specific implementations. */
+/**
+ * The [Platform] implementation for the system that delegates to the specific implementations.
+ *
+ * Simply create an instance of this class and use it to get the platform information.
+ *
+ * ```kotlin
+ * val platform = KPlatform()
+ * println(platform.operatingSystem.isAndroid)
+ * println(platform.compilationTarget)
+ * ```
+ */
 public class KPlatform : Platform {
-  override val operatingSystem: String
-    get() = getOperatingSystem()
+  public override val operatingSystem: OperatingSystem
+    get() = OperatingSystem.from(
+      getOperatingSystemString(),
+      getOperatingSystemVersionString()
+    )
 
-  override val operatingSystemVersion: String
-    get() = getOperatingSystemVersion()
+  public override val compilationTarget: CompilationTarget
+    get() = getCompilationTarget()
 }

@@ -1,6 +1,6 @@
 package com.giancarlobuenaflor.kplatform
 
-internal actual fun getOperatingSystem(): String {
+internal actual fun getOperatingSystemString(): String {
   val os = System.getProperty("os.name")
   if (os.contains("Windows", ignoreCase = true)) return "windows"
   if (os.contains("Mac", ignoreCase = true)) return "mac"
@@ -8,6 +8,10 @@ internal actual fun getOperatingSystem(): String {
   return "unknown"
 }
 
-internal actual fun getOperatingSystemVersion(): String {
+internal actual fun getOperatingSystemVersionString(): String {
   return System.getProperty("os.version")
+}
+
+internal actual fun getCompilationTarget(): CompilationTarget {
+  return CompilationTarget.JVM
 }
