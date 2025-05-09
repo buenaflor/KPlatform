@@ -1,6 +1,6 @@
 # KPlatform
 
-A lightweight Kotlin Multiplatform library that lets you use runtime information of the system.  
+A lightweight pluggable Kotlin Multiplatform library that lets you use runtime information of the system.  
 
 ---
 
