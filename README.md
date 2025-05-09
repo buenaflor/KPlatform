@@ -39,3 +39,47 @@ commonMain.dependencies {
 }
 ```
 
+## Quick Start
+
+To start simply create an instance of `KPlatform`. That's it.
+
+```kotlin
+val platform = KPlatform()
+```
+
+### Reduce Boilerplate
+
+Sometimes you don't need platform specific APIs but want to write custom code based on the operating
+system or compilation target. 
+
+```kotlin
+// in commonMain
+val platform = KPlatform()
+
+fun foo() {
+  if (platform.operatingSystem.isAndroid) {
+    // Execute Android specific code
+  }
+  if (platform.compilationTarget.isWeb) {
+    // Execute Web specific code
+  }
+}
+```
+
+## Testing
+
+Create a custom implementation of the `Platform` interface and inject it wherever your code needs 
+faked platform data.
+
+```kotlin
+class FakePlatform(
+  override val compilationTarget: CompilationTarget = CompilationTarget.JVM,
+  override val operatingSystem: OperatingSystem = OperatingSystem.from(
+    OperatingSystem.Family.IOS,
+    "16.1"
+  ),
+  override val environment: Map<String, String> = mapOf("MY_ENV" to "123")
+) : Platform
+
+val fakePlatform = FakePlatform()
+```
