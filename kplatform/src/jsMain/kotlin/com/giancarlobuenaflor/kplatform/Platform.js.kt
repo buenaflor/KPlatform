@@ -1,5 +1,8 @@
 package com.giancarlobuenaflor.kplatform
 
+import kotlin.js.collections.JsMap
+import kotlin.js.collections.toMap
+
 private fun isNode(): Boolean {
   return jsTypeOf(js("process")) != "undefined"
 }
@@ -97,4 +100,19 @@ internal actual fun getOperatingSystemVersionString(): String {
 
 internal actual fun getCompilationTarget(): CompilationTarget {
   return CompilationTarget.JS
+}
+
+@OptIn(ExperimentalJsCollectionsApi::class)
+private fun getNodeEnvironmentMap(): Map<String, String> {
+  console.log(js("process.env"))
+  val env = js("process.env")
+  return env.toMap()
+}
+
+internal actual fun getEnvironmentMap(): Map<String, String> {
+  if (isNode()) {
+    return getNodeEnvironmentMap()
+  }
+
+  return emptyMap()
 }

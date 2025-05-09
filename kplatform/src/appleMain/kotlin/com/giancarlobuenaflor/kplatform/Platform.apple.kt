@@ -15,3 +15,8 @@ internal actual fun getOperatingSystemVersionString(): String {
     return "$major.$minor.$patch"
   }
 }
+
+internal actual fun getEnvironmentMap(): Map<String, String> =
+    NSProcessInfo.processInfo.environment.entries.associate {
+      it.key.toString() to it.value.toString()
+    }

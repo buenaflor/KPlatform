@@ -15,3 +15,7 @@ internal actual fun getOperatingSystemVersionString(): String {
 internal actual fun getCompilationTarget(): CompilationTarget {
   return CompilationTarget.JVM
 }
+
+internal actual fun getEnvironmentMap(): Map<String, String> {
+  return System.getenv()
+}

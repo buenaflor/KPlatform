@@ -13,11 +13,11 @@ package com.giancarlobuenaflor.kplatform
  */
 public class KPlatform : Platform {
   public override val operatingSystem: OperatingSystem
-    get() = OperatingSystem.from(
-      getOperatingSystemString(),
-      getOperatingSystemVersionString()
-    )
+    get() = OperatingSystem.from(getOperatingSystemString(), getOperatingSystemVersionString())
 
   public override val compilationTarget: CompilationTarget
     get() = getCompilationTarget()
+
+  override val environment: Map<String, String>
+    get() = getEnvironmentMap()
 }

@@ -1,15 +1,14 @@
 package com.giancarlobuenaflor.kplatform
 
-public fun getNodeOperatingSystem(): String = js("process.platform")
+private fun getNodeOperatingSystem(): String = js("process.platform")
 
-public fun getNodeOperatingSystemVersion(): String = js("process.version")
+private fun getNodeOperatingSystemVersion(): String = js("process.version")
 
-public fun getUserAgent(): String = js("navigator.userAgent")
+private fun getUserAgent(): String = js("navigator.userAgent")
 
-public fun isNode(): Boolean = js("typeof process !== 'undefined'")
+private fun isNode(): Boolean = js("typeof process !== 'undefined'")
 
 internal actual fun getOperatingSystemString(): String {
-  // Node.js ➜ parse from navigator.userAgent
   if (isNode()) {
     return when (getNodeOperatingSystem()) {
       "win32" -> "windows"
@@ -99,4 +98,9 @@ internal actual fun getOperatingSystemVersionString(): String {
 
 internal actual fun getCompilationTarget(): CompilationTarget {
   return CompilationTarget.WASMJS
+}
+
+internal actual fun getEnvironmentMap(): Map<String, String> {
+  // TODO: check if kotlin/wasm interop is good enough to fetch the env
+  return emptyMap()
 }
