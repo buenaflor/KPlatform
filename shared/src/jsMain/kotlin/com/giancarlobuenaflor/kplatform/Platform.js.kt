@@ -1,0 +1,96 @@
+package com.giancarlobuenaflor.kplatform
+
+private fun isNode(): Boolean {
+  return jsTypeOf(js("process")) != "undefined"
+}
+
+internal actual fun getOperatingSystem(): String {
+  // Node.js ➜ parse from process.platform
+  if (isNode()) {
+    val os = (js("process.platform") as String)
+    return when (os) {
+      "win32" -> Platform.WINDOWS
+      "darwin" -> Platform.MACOS
+      "linux" -> Platform.LINUX
+      else -> "unknown"
+    }
+  }
+
+  // Browser ➜ parse from navigator.userAgent
+  val userAgent = js("navigator.userAgent") as String
+  return when {
+    userAgent.contains("Android", ignoreCase = true) -> Platform.ANDROID
+    userAgent.contains("iPhone", ignoreCase = true) ||
+        userAgent.contains("iPad", ignoreCase = true) -> Platform.IOS
+    userAgent.contains("Mac OS", ignoreCase = true) -> Platform.MACOS
+    userAgent.contains("Windows", ignoreCase = true) -> Platform.WINDOWS
+    userAgent.contains("Linux", ignoreCase = true) -> Platform.LINUX
+    else -> "unknown"
+  }
+}
+
+internal actual fun getOperatingSystemVersion(): String {
+  // Node.js ➜ parse from process
+  if (jsTypeOf(js("process")) != "undefined") {
+    return js("process.version") as String
+  }
+
+  // Browser ➜ parse from navigator.userAgent
+  val ua = js("navigator.userAgent") as String
+
+  fun clean(version: String): String = version.replace('_', '.')
+
+  // Android
+  val androidRegex = Regex("(?:android|adr) (\\d+([._]\\d+)*)", RegexOption.IGNORE_CASE)
+  val androidMatch = androidRegex.find(ua)
+  if (androidMatch != null) {
+    return clean(androidMatch.groupValues[1])
+  }
+
+  // iOS (iPhone / iPad)
+  val iosRegex = Regex("os ((\\d+[._])+\\d+) like mac os x", RegexOption.IGNORE_CASE)
+  val iosMatch = iosRegex.find(ua)
+  if (iosMatch != null) {
+    return clean(iosMatch.groupValues[1])
+  }
+
+  // macOS
+  val macRegex = Regex("os x ((\\d+[._])+\\d+)\\b", RegexOption.IGNORE_CASE)
+  val macMatch = macRegex.find(ua)
+  if (macMatch != null) {
+    return clean(macMatch.groupValues[1])
+  }
+
+  // Windows
+  val winRegex =
+      Regex(
+          "win(?:dows)?(?: phone)?[ _]?(?:(?:nt|9x) )?((?:(\\d+\\.)*\\d+)|xp|me|ce)\\b",
+          RegexOption.IGNORE_CASE)
+  val winMatch = winRegex.find(ua)
+  if (winMatch != null) {
+    return when (val raw = winMatch.groupValues[1].lowercase()) {
+      "6.4",
+      "10.0" -> "10.0" // some FF versions used 6.4 for Win10
+      "6.3",
+      "8.1" -> "8.1"
+      "6.2",
+      "8.0" -> "8"
+      "6.1",
+      "7.0" -> "7"
+      "6.0" -> "Vista"
+      "5.2" -> "Server 2003"
+      "5.1" -> "XP"
+      "5.01" -> "2000 SP1"
+      "5.0" -> "2000"
+      "4.0" -> "4.0"
+      else -> raw
+    }
+  }
+
+  val linuxRegex = Regex("(?!.*android.*)(linux|x11|ubuntu)", RegexOption.IGNORE_CASE)
+  if (linuxRegex.containsMatchIn(ua)) {
+    return "unknown"
+  }
+
+  return "unknown"
+}
