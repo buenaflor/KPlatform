@@ -1,10 +1,11 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
   alias(libs.plugins.kotlinMultiplatform)
   alias(libs.plugins.androidLibrary)
-  `maven-publish`
+  alias(libs.plugins.vanniktechMavenPublish)
 }
 
 group = project.property("group") as String
@@ -14,6 +15,7 @@ kotlin {
   explicitApi()
 
   androidTarget {
+    publishAllLibraryVariants()
     compilations.all {
       compileTaskProvider.configure { compilerOptions { jvmTarget.set(JvmTarget.JVM_1_8) } }
     }
@@ -58,5 +60,38 @@ android {
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+  }
+}
+
+mavenPublishing {
+  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+  signAllPublications()
+
+  coordinates(group.toString(), "kplatform", version.toString())
+
+  pom {
+    name = "KPlatform"
+    description = "A lightweight pluggable Kotlin Multiplatform library that lets you use runtime information of the system."
+    inceptionYear = "2025"
+    url = "https://github.com/buenaflor/kplatform"
+    licenses {
+      license {
+        name = "The Apache License, Version 2.0"
+        url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        distribution = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    }
+    developers {
+      developer {
+        id = "buenaflor"
+        name = "Giancarlo Buenaflor"
+        url = "https://www.giancarlobuenaflor.com/"
+        email = "giancarlobuenaflor97@gmail.com"
+      }
+    }
+    scm {
+      url = "https://github.com/buenaflor/kplatform"
+    }
   }
 }
