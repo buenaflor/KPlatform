@@ -49,36 +49,43 @@ public enum class CompilationTarget(public val targetName: String) {
   /** Returns true if this compilation target is a mobile target. */
   public val isMobile: Boolean
     get() = this == ANDROID || this == IOSX64 || this == IOSARM64 || this == IOSSIMULATORARM64
+
+  override fun toString(): String {
+    return targetName
+  }
 }
 
 /** Enumeration of runtime operating systems. */
-public sealed class OperatingSystem(private val family: Family, private val version: String) {
-  public enum class Family {
-    ANDROID,
-    IOS,
-    MACOS,
-    TVOS,
-    WATCHOS,
-    LINUX,
-    WINDOWS,
-    UNKNOWN,
+public sealed class OperatingSystem(public val family: Family, public val version: String) {
+  public enum class Family(private val displayName: String) {
+    ANDROID("Android"),
+    IOS("iOS"),
+    MACOS("macOS"),
+    TVOS("tvOS"),
+    WATCHOS("watchOS"),
+    LINUX("Linux"),
+    WINDOWS("Windows"),
+    UNKNOWN("Unknown");
+
+    /** Returns a human-readable name for this family. */
+    override fun toString(): String = displayName
   }
 
-  public data class Android(private val version: String) : OperatingSystem(Family.ANDROID, version)
+  public class Android(version: String) : OperatingSystem(Family.ANDROID, version)
 
-  public data class Ios(private val version: String) : OperatingSystem(Family.IOS, version)
+  public class Ios(version: String) : OperatingSystem(Family.IOS, version)
 
-  public data class MacOs(private val version: String) : OperatingSystem(Family.MACOS, version)
+  public class MacOs(version: String) : OperatingSystem(Family.MACOS, version)
 
-  public data class TvOs(private val version: String) : OperatingSystem(Family.TVOS, version)
+  public class TvOs(version: String) : OperatingSystem(Family.TVOS, version)
 
-  public data class WatchOs(private val version: String) : OperatingSystem(Family.WATCHOS, version)
+  public class WatchOs(version: String) : OperatingSystem(Family.WATCHOS, version)
 
-  public data class Linux(private val version: String) : OperatingSystem(Family.LINUX, version)
+  public class Linux(version: String) : OperatingSystem(Family.LINUX, version)
 
-  public data class Windows(private val version: String) : OperatingSystem(Family.WINDOWS, version)
+  public class Windows(version: String) : OperatingSystem(Family.WINDOWS, version)
 
-  public data class Unknown(private val version: String) : OperatingSystem(Family.UNKNOWN, version)
+  public class Unknown(version: String) : OperatingSystem(Family.UNKNOWN, version)
 
   public val isAndroid: Boolean
     get() = family == Family.ANDROID
@@ -132,7 +139,7 @@ public sealed class OperatingSystem(private val family: Family, private val vers
         }
   }
 
-  override fun toString(): String = "${family.name.lowercase()} $version"
+  override fun toString(): String = "$family $version"
 }
 
 internal expect fun getOperatingSystemString(): String
