@@ -1,6 +1,6 @@
 [versions]
 agp = "8.9.2"
-kotlin = "2.1.21-RC2"
+kotlin = "2.2.0-Beta2"
 spotless = "7.0.3"
 dokka = "2.0.0"
 vanniktechPublish = "0.31.0"
