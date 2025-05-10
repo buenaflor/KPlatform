@@ -21,3 +21,26 @@ public class KPlatform : Platform {
   override val environment: Map<String, String>
     get() = getEnvironmentMap()
 }
+
+public fun test() {
+  val platform = KPlatform()
+
+  when (platform.operatingSystem) {
+    is OperatingSystem.Windows -> {
+
+    }
+    else -> {
+
+    }
+  }
+
+  when (platform.compilationTarget) {
+    CompilationTarget.ANDROID -> {
+      // Execute Android
+    }
+    CompilationTarget.JS -> {
+
+    }
+    else -> println("Unknown")
+  }
+}

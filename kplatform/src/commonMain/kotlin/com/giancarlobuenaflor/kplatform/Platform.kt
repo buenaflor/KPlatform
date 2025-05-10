@@ -5,7 +5,29 @@ package com.giancarlobuenaflor.kplatform
  * allows for the use of these APIs in tests, where you can provide mock implementations.
  */
 public interface Platform {
-  /** The compilation target of the current platform. */
+  /**
+   * The compilation target of the current platform.
+   *
+   * Example usage:
+   *
+   * ```kotlin
+   * val platform = KPlatform()
+   *
+   * if (platform.compilationTarget.isWeb) {
+   *   // Execute code that should only run on web targets
+   * }
+   *
+   * // or use a switch
+   *
+   * when (platform.compilationTarget) {
+   *   CompilationTarget.JS -> {
+   *     // Execute code that should only run on JS targets
+   *   }
+   *   else -> {
+   *     // Do something else
+   *   }
+   * }
+   */
   public val compilationTarget: CompilationTarget
 
   /**
@@ -13,6 +35,26 @@ public interface Platform {
    *
    * This is not necessarily the same as the compilation target. For example, a JVM compiled app can
    * run on any operating system that supports a JVM.
+   *
+   * Example usage:
+   * ```kotlin
+   * val platform = KPlatform()
+   *
+   * if (platform.operatingSystem.isWindows) {
+   *   // Execute code that should only run on Windows
+   * }
+   *
+   * // or use a switch
+   *
+   * when (platform.operatingSystem) {
+   *   is OperatingSystem.Windows -> {
+   *     // Execute code that should only run on Windows
+   *   }
+   *   else -> {
+   *     // Do something else
+   *   }
+   * }
+   * ```
    */
   public val operatingSystem: OperatingSystem
 
@@ -46,9 +88,25 @@ public enum class CompilationTarget(public val targetName: String) {
   public val isWeb: Boolean
     get() = this == JS || this == WASMJS
 
+  /** Returns true if this compilation target is an iOS target. */
+  public val isIOS: Boolean
+    get() = this == IOSX64 || this == IOSARM64 || this == IOSSIMULATORARM64
+
+  /** Returns true if this compilation target is a macOS target. */
+  public val isMacOS: Boolean
+    get() = this == MACOSARM64 || this == MACOSX64
+
+  /** Returns true if this compilation target is a tvOS target. */
+  public val isTvOS: Boolean
+    get() = this == TVOSX64 || this == TVOSARM64 || this == TVOSSIMULATORARM64
+
+  /** Returns true if this compilation target is a watchOS target. */
+  public val isWatchOS: Boolean
+    get() = this == WATCHOSX64 || this == WATCHOSARM64 || this == WATCHOSSIMULATORARM64
+
   /** Returns true if this compilation target is a mobile target. */
   public val isMobile: Boolean
-    get() = this == ANDROID || this == IOSX64 || this == IOSARM64 || this == IOSSIMULATORARM64
+    get() = this == ANDROID || isIOS
 
   override fun toString(): String {
     return targetName
