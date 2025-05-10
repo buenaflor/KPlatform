@@ -11,24 +11,23 @@ when you don’t actually need platform APIs.
 
 ---
 
-## 🚀 Features
+## Features
 
-- **Zero-config** — Works out-of-the-box with all major Kotlin targets.
-- **No Boilerplate** — Keep platform branches close to your domain code.
+- ✅ **Zero-config** — Works out-of-the-box with all major Kotlin targets.
+- ✅ **Reduce Boilerplate** — Keep platform branches close to your domain code.
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
 1. [Installation](#-installation)
 2. [Quick Start](#-quick-start)
 3. [Testing](#-testing)
 4. [Supported Targets](#-supported-targets)
-5. [License](#-license)
 
 ---
 
-## 📦 Installation
+## Installation
 
 Add the dependency to the **`commonMain`** source-set in your Multiplatform `build.gradle(.kts)`
 file:
@@ -47,13 +46,28 @@ To start simply create an instance of `KPlatform`. That's it.
 val platform = KPlatform()
 ```
 
+### Operating System and Compilation Target
+
+The API surfaces the operating system and compilation target information. 
+Sometimes it's important to make a distinction between the operating system and the compilation target.
+
+Consider a web build (`js` target) that may execute on Windows, Linux, or macOS. The compilation
+target remains `js`, while the runtime operating system changes per end-user.  
+Knowing both values allows you to fine-tune behaviour when either dimension matters.
+
+```kotlin
+val platform = KPlatform()
+
+val operatingSystem  = platform.operatingSystem
+val compilationTarget = platform.compilationTarget
+```
+
 ### Reduce Boilerplate
 
 Sometimes you don't need platform specific APIs but want to write custom code based on the operating
 system or compilation target. 
 
 ```kotlin
-// in commonMain
 val platform = KPlatform()
 
 fun foo() {
@@ -83,3 +97,18 @@ class FakePlatform(
 
 val fakePlatform = FakePlatform()
 ```
+
+## Supported Targets
+
+| Target                    | Kotlin preset                                              |
+|---------------------------|------------------------------------------------------------|
+| Android                   | `android()`                                                |
+| JVM                       | `jvm()`                                                    |
+| iOS                       | `iosArm64()` / `iosX64()` / `iosSimulatorArm64()`          |
+| macOS                     | `macosX64()` / `macosArm64()`                              |
+| tvOS                      | `tvosX64()` / `tvosArm64` / `tvosSimulatorArm64`           |
+| watchOS                   | `watchosX64()` / `watchosArm64` / `watchosSimulatorArm64`  |
+| WasmJS (browser & node)   | `wasmJs()`                                                 |
+| JS (browser & node)       | `js()`                                                     |
+
+> Need another target?  [Open an issue](https://github.com/your-org/kplatform/issues).
