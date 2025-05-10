@@ -19,10 +19,10 @@ when you don’t actually need platform APIs.
 
 ## Table of Contents
 
-1. [Installation](#-installation)
-2. [Quick Start](#-quick-start)
-3. [Testing](#-testing)
-4. [Supported Targets](#-supported-targets)
+1. [Installation](#installation)
+2. [Quick Start](#quick-start)
+3. [Testing](#testing)
+4. [Supported Targets](#supported-targets)
 
 ---
 
