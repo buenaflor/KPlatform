@@ -4,18 +4,16 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.giancarlobuenaflor/kplatform)](https://central.sonatype.com/artifact/com.giancarlobuenaflor/kplatform)
 
 **KPlatform** is a lightweight, pluggable Kotlin Multiplatform (KMP) library that exposes
-information about _where_ your code is running so **you can write platform-specific logic right
-from `commonMain`**—without scattering `expect/actual` declarations or creating extra source-sets
-when you don’t actually need platform APIs.
+information about _where_ your code is running such as the operating system or compilation target 
+so **you can write platform-specific logic right from `commonMain`** without scattering `expect/actual`
+declarations or creating extra source-sets when you don’t actually need platform APIs.
 
 ---
 
 ## Features
 
-- ✅ **Zero-config** — Works out-of-the-box with all major Kotlin targets.
+- ✅ **Zero-config** — Works out-of-the-box with all major Kotlin Multiplatform targets.
 - ✅ **Reduce Boilerplate** — Keep platform branches close in `commonMain`.
-
----
 
 ## Table of Contents
 
@@ -23,8 +21,6 @@ when you don’t actually need platform APIs.
 2. [Quick Start](#quick-start)
 3. [Testing](#testing)
 4. [Supported Targets](#supported-targets)
-
----
 
 ## Installation
 
@@ -39,7 +35,7 @@ commonMain.dependencies {
 
 ## Quick Start
 
-To start simply create an instance of `KPlatform`. That's it.
+To start, simply create an instance of `KPlatform`. That's it.
 
 ```kotlin
 val platform = KPlatform()
