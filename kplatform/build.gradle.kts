@@ -59,7 +59,7 @@ android {
 }
 
 mavenPublishing {
-  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
 
   signAllPublications()
 
@@ -88,8 +88,4 @@ mavenPublishing {
     }
     scm { url = "https://github.com/buenaflor/kplatform" }
   }
-}
-
-mavenPublishing {
-  publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
 }
