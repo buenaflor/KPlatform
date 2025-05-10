@@ -89,3 +89,7 @@ mavenPublishing {
     scm { url = "https://github.com/buenaflor/kplatform" }
   }
 }
+
+mavenPublishing {
+  publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
+}
