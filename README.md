@@ -65,7 +65,7 @@ val compilationTarget = platform.compilationTarget
 ### Reduce Boilerplate
 
 Sometimes you don't need platform specific APIs but want to write custom code based on the operating
-system or compilation target. 
+system and/or compilation target. 
 
 ```kotlin
 val platform = KPlatform()
