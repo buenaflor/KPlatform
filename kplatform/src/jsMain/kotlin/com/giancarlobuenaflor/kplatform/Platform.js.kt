@@ -1,25 +1,6 @@
 package com.giancarlobuenaflor.kplatform
 
-import kotlin.js.collections.JsArray
-import kotlin.js.collections.toList
-
-private fun isNode(): Boolean {
-  return jsTypeOf(js("process")) != "undefined"
-}
-
 internal actual fun getOperatingSystemString(): String {
-  // Node.js ➜ parse from process.platform
-  if (isNode()) {
-    val os = (js("process.platform") as String)
-    return when (os) {
-      "win32" -> "windows"
-      "darwin" -> "macos" // always macOS assuming you can't run node on iOS :)
-      "linux" -> "linux"
-      else -> "unknown"
-    }
-  }
-
-  // Browser ➜ parse from navigator.userAgent
   val userAgent = js("navigator.userAgent") as String
   return when {
     userAgent.contains("Android", ignoreCase = true) -> "android"
@@ -102,18 +83,6 @@ internal actual fun getCompilationTarget(): CompilationTarget {
   return CompilationTarget.JS
 }
 
-@OptIn(ExperimentalJsCollectionsApi::class)
-private fun getNodeEnvironmentMap(): Map<String, String> {
-  val env: dynamic = js("process.env")
-  val keys = js("Object.keys(env)") as JsArray<String>
-  val kotlinKeys = keys.toList()
-  return buildMap(kotlinKeys.size) { kotlinKeys.forEach { key -> this[key] = env[key] as String } }
-}
-
 internal actual fun getEnvironmentMap(): Map<String, String> {
-  if (isNode()) {
-    return getNodeEnvironmentMap()
-  }
-
   return emptyMap()
 }

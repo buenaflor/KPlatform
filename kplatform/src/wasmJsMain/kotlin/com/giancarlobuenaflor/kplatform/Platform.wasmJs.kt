@@ -6,19 +6,7 @@ private fun getNodeOperatingSystemVersion(): String = js("process.version")
 
 private fun getUserAgent(): String = js("navigator.userAgent")
 
-private fun isNode(): Boolean = js("typeof process !== 'undefined'")
-
 internal actual fun getOperatingSystemString(): String {
-  if (isNode()) {
-    return when (getNodeOperatingSystem()) {
-      "win32" -> "windows"
-      "darwin" -> "macos"
-      "linux" -> "linux"
-      else -> "unknown"
-    }
-  }
-
-  // Browser ➜ parse from navigator.userAgent
   val userAgent = getUserAgent()
   return when {
     userAgent.contains("Android", ignoreCase = true) -> "android"
@@ -32,11 +20,6 @@ internal actual fun getOperatingSystemString(): String {
 }
 
 internal actual fun getOperatingSystemVersionString(): String {
-  if (isNode()) {
-    return getNodeOperatingSystemVersion()
-  }
-
-  // Browser ➜ parse from navigator.userAgent
   val userAgent = getUserAgent()
 
   fun clean(version: String): String = version.replace('_', '.')
@@ -101,6 +84,6 @@ internal actual fun getCompilationTarget(): CompilationTarget {
 }
 
 internal actual fun getEnvironmentMap(): Map<String, String> {
-  // TODO: check if kotlin/wasm interop is good enough to fetch the env
+  // No env for
   return emptyMap()
 }

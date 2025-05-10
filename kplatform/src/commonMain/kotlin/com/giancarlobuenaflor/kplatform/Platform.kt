@@ -53,7 +53,7 @@ public enum class CompilationTarget(public val targetName: String) {
 
 /** Enumeration of runtime operating systems. */
 public sealed class OperatingSystem(private val family: Family, private val version: String) {
-  private enum class Family {
+  public enum class Family {
     ANDROID,
     IOS,
     MACOS,
@@ -117,6 +117,21 @@ public sealed class OperatingSystem(private val family: Family, private val vers
           "windows" -> Windows(version)
           else -> Unknown(version)
         }
+
+    /**
+     * Convenience method to build an [OperatingSystem] from a [Family] and a version string.
+     */
+    public fun from(family: Family, version: String): OperatingSystem =
+      when (family) {
+        Family.ANDROID -> Android(version)
+        Family.IOS -> Ios(version)
+        Family.MACOS -> MacOs(version)
+        Family.TVOS -> TvOs(version)
+        Family.WATCHOS -> WatchOs(version)
+        Family.LINUX -> Linux(version)
+        Family.WINDOWS -> Windows(version)
+        else -> Unknown(version)
+      }
   }
 
   override fun toString(): String = "${family.name.lowercase()} $version"

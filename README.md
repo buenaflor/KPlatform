@@ -100,15 +100,15 @@ val fakePlatform = FakePlatform()
 
 ## Supported Targets
 
-| Target                    | Kotlin preset                                              |
-|---------------------------|------------------------------------------------------------|
-| Android                   | `android()`                                                |
-| JVM                       | `jvm()`                                                    |
-| iOS                       | `iosArm64()` / `iosX64()` / `iosSimulatorArm64()`          |
-| macOS                     | `macosX64()` / `macosArm64()`                              |
-| tvOS                      | `tvosX64()` / `tvosArm64` / `tvosSimulatorArm64`           |
-| watchOS                   | `watchosX64()` / `watchosArm64` / `watchosSimulatorArm64`  |
-| WasmJS (browser & node)   | `wasmJs()`                                                 |
-| JS (browser & node)       | `js()`                                                     |
+| Target           | Kotlin preset                                              |
+|------------------|------------------------------------------------------------|
+| Android          | `android()`                                                |
+| JVM              | `jvm()`                                                    |
+| iOS              | `iosArm64()` / `iosX64()` / `iosSimulatorArm64()`          |
+| macOS            | `macosX64()` / `macosArm64()`                              |
+| tvOS             | `tvosX64()` / `tvosArm64` / `tvosSimulatorArm64`           |
+| watchOS          | `watchosX64()` / `watchosArm64` / `watchosSimulatorArm64`  |
+| WasmJS (browser) | `wasmJs()`                                                 |
+| JS (browser)     | `js()`                                                     |
 
 > Need another target?  [Open an issue](https://github.com/your-org/kplatform/issues).

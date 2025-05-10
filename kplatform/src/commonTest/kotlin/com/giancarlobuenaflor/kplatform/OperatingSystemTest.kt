@@ -1,4 +1,28 @@
 // TODO: who needs tests?
+
+package com.giancarlobuenaflor.kplatform
+
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class FakePlatform(
+  override val compilationTarget: CompilationTarget = CompilationTarget.JVM,
+  override val operatingSystem: OperatingSystem = OperatingSystem.from(
+    OperatingSystem.Family.IOS,
+    "16.1"
+  ),
+  override val environment: Map<String, String> = mapOf("MY_ENV" to "123")
+) : Platform
+
+class Test {
+
+  val fakePlatform = FakePlatform()
+
+  @Test
+  fun test() {
+    assertEquals(KPlatform().environment, mapOf("hello" to ""))
+  }
+}
 //
 // import kotlin.test.Test
 // import kotlin.test.assertTrue
