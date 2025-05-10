@@ -45,6 +45,8 @@ To start simply create an instance of `KPlatform`. That's it.
 val platform = KPlatform()
 ```
 
+❗ For an in-depth view of what API is available [check out the API documentation](https://buenaflor.github.io/KPlatform/).
+
 ### Operating System and Compilation Target
 
 The API surfaces the operating system and compilation target information. 
