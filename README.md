@@ -79,6 +79,34 @@ fun foo() {
 }
 ```
 
+You can use a switch as well.
+
+```kotlin
+val platform = KPlatform()
+
+when (platform.operatingSystem) {
+  is OperatingSystem.Android -> {
+    // Execute Android specific code
+  }
+  is OperatingSystem.Ios -> {
+    // Execute iOS specific code
+  }
+  else -> {
+    // do something else
+  }
+}
+
+when (platform.compilationTarget) {
+  CompilationTarget.ANDROID -> {
+    // Execute Android specific code
+  }
+  CompilationTarget.JS -> {
+    // Execute JS specific code
+  }
+  else -> println("Unknown")
+}
+```
+
 ## Testing
 
 Create a custom implementation of the `Platform` interface and inject it wherever your code needs 
@@ -88,8 +116,8 @@ faked platform data.
 class FakePlatform(
   override val compilationTarget: CompilationTarget = CompilationTarget.JVM,
   override val operatingSystem: OperatingSystem = OperatingSystem.from(
-    OperatingSystem.Family.IOS,
-    "16.1"
+    OperatingSystem.Family.WINDOWS,
+    "10"
   ),
   override val environment: Map<String, String> = mapOf("MY_ENV" to "123")
 ) : Platform
