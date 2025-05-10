@@ -14,7 +14,7 @@ when you don’t actually need platform APIs.
 ## Features
 
 - ✅ **Zero-config** — Works out-of-the-box with all major Kotlin targets.
-- ✅ **Reduce Boilerplate** — Keep platform branches close to your domain code.
+- ✅ **Reduce Boilerplate** — Keep platform branches close in `commonMain`.
 
 ---
 
