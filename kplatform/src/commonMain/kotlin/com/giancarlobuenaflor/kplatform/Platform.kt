@@ -9,7 +9,6 @@ public interface Platform {
    * The compilation target of the current platform.
    *
    * Example usage:
-   *
    * ```kotlin
    * val platform = KPlatform()
    *
@@ -58,9 +57,7 @@ public interface Platform {
    */
   public val operatingSystem: OperatingSystem
 
-  /**
-   * Returns true if binary was compiled in debug mode.
-   */
+  /** Returns true if binary was compiled in debug mode. */
   public val isDebug: Boolean
 
   /**

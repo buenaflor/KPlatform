@@ -29,21 +29,16 @@ public fun test() {
   val platform = KPlatform()
 
   when (platform.operatingSystem) {
-    is OperatingSystem.Windows -> {
-
-    }
-    else -> {
-
-    }
+    is OperatingSystem.Windows -> {}
+    else -> {}
   }
 
   when (platform.compilationTarget) {
     CompilationTarget.ANDROID -> {
       // Execute Android
     }
-    CompilationTarget.JS -> {
+    CompilationTarget.JS -> {}
 
-    }
     else -> println("Unknown")
   }
 }

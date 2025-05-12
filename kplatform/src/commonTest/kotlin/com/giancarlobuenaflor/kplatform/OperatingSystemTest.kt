@@ -1,3 +1,6 @@
+import com.giancarlobuenaflor.kplatform.KPlatform
+import kotlin.test.Test
+
 // TODO: who needs tests?
 //
 // import kotlin.test.Test

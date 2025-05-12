@@ -4,7 +4,6 @@ private fun getUserAgent(): String = js("navigator.userAgent")
 
 private fun getNodeEnv(): String = js("process.env.NODE_ENV")
 
-
 internal actual fun getOperatingSystemString(): String {
   val userAgent = getUserAgent()
   return when {
