@@ -41,7 +41,7 @@ jobs:
         ]
     runs-on: ${{ matrix.config.os }}
     name: Build ${{ matrix.config.target }}
-    needs: check
+    needs: analyze
     steps:
       - uses: actions/checkout@v3
       - name: Setup JDK
