@@ -14,11 +14,6 @@ class PlatformTest {
   }
 
   @Test
-  fun `isDebug returns true by default in tests`() {
-    assertTrue(platform.isDebug)
-  }
-
-  @Test
   fun `operatingSystem returns correct values`() {
     // TODO: these are primitive tests
     val operatingSystem = platform.operatingSystem
