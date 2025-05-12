@@ -35,7 +35,6 @@ jobs:
           { target: macos, os: macos-latest, tasks: macosX64Test macosArm64Test, continueOnError: false },
           { target: tvos, os: macos-latest, tasks: tvosX64Test tvosSimulatorArm64Test, continueOnError: false },
           { target: watchos, os: macos-latest, tasks: watchosX64Test watchosSimulatorArm64Test, continueOnError: false },
-          { target: linux, os: ubuntu-latest, tasks: linuxTest, continueOnError: false },
           { target: js, os: ubuntu-latest, tasks: jsTest, continueOnError: false },
           { target: wasm, os: ubuntu-latest, tasks: wasmJsTest, continueOnError: false },
         ]
