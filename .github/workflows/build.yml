@@ -1,0 +1,61 @@
+name: Build
+
+on:
+  push:
+    branches: main
+
+# This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: 'zulu'
+
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Check spotless
+        run: ./gradlew spotlessCheck
+
+  build:
+    strategy:
+      matrix:
+        config: [
+          { target: android, os: ubuntu-latest, tasks: testDebugUnitTest testReleaseUnitTest, continueOnError: false },
+          { target: ios, os: macos-latest, tasks: iosX64Test iosSimulatorArm64Test, continueOnError: false },
+          { target: macos, os: macos-latest, tasks: macosX64Test macosArm64Test, continueOnError: false },
+          { target: tvos, os: macos-latest, tasks: tvosX64Test tvosSimulatorArm64Test, continueOnError: false },
+          { target: watchos, os: macos-latest, tasks: watchosX64Test watchosSimulatorArm64Test, continueOnError: false },
+          { target: linux, os: ubuntu-latest, tasks: linuxTest, continueOnError: false },
+          { target: js, os: ubuntu-latest, tasks: jsTest, continueOnError: false },
+          { target: wasm, os: ubuntu-latest, tasks: wasmJsTest, continueOnError: false },
+        ]
+    runs-on: ${{ matrix.config.os }}
+    name: Build ${{ matrix.config.target }}
+    needs: check
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: 'zulu'
+
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Test ${{ matrix.config.target }} targets
+        continue-on-error: ${{ matrix.config.continueOnError }}
+        env:
+          OS_NAME: ${{ matrix.config.os }}
+          TARGET_NAME: ${{ matrix.config.target }}
+        run: ./gradlew ${{ matrix.config.tasks }}

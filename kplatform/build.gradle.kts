@@ -17,9 +17,9 @@ kotlin {
   explicitApi()
 
   androidTarget {
-    publishAllLibraryVariants()
+    publishLibraryVariants("release")
     compilations.all {
-      compileTaskProvider.configure { compilerOptions { jvmTarget.set(JvmTarget.JVM_1_8) } }
+      compileTaskProvider.configure { compilerOptions { jvmTarget.set(JvmTarget.JVM_11) } }
     }
   }
 
@@ -53,8 +53,8 @@ android {
   compileSdk = 35
   defaultConfig { minSdk = 24 }
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
   }
   buildFeatures { buildConfig = true }
 }

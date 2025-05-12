@@ -86,6 +86,10 @@ public enum class CompilationTarget(public val targetName: String) {
   WATCHOSARM64("watchosArm64"),
   WATCHOSSIMULATORARM64("watchosSimulatorArm64");
 
+  /** Returns true if this compilation target is an Android target. */
+  public val isAndroid: Boolean
+    get() = this == ANDROID
+
   /** Returns true if this compilation target is a web target. */
   public val isWeb: Boolean
     get() = this == JS || this == WASMJS
