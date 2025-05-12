@@ -117,7 +117,8 @@ class FakePlatform(
     OperatingSystem.Family.WINDOWS,
     "10"
   ),
-  override val environment: Map<String, String> = mapOf("MY_ENV" to "123")
+  override val environment: Map<String, String> = mapOf("MY_ENV" to "123"),
+  override val isDebug: Boolean = false
 ) : Platform
 
 val fakePlatform = FakePlatform()
