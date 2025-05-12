@@ -32,7 +32,8 @@ jobs:
         config: [
           { target: android, os: ubuntu-latest, tasks: testDebugUnitTest testReleaseUnitTest, continueOnError: false },
           { target: ios, os: macos-latest, tasks: iosX64Test iosSimulatorArm64Test, continueOnError: false },
-          { target: macos, os: macos-latest, tasks: macosX64Test macosArm64Test, continueOnError: false },
+          # Disable macos for now due to compilation error: https://youtrack.jetbrains.com/issue/KT-77067
+          #  { target: macos, os: macos-latest, tasks: macosX64Test macosArm64Test, continueOnError: false },
           { target: tvos, os: macos-latest, tasks: tvosX64Test tvosSimulatorArm64Test, continueOnError: false },
           { target: watchos, os: macos-latest, tasks: watchosX64Test watchosSimulatorArm64Test, continueOnError: false },
           { target: js, os: ubuntu-latest, tasks: jsTest, continueOnError: false },
