@@ -88,6 +88,6 @@ internal actual fun getEnvironmentMap(): Map<String, String> {
 }
 
 internal actual fun getIsDebug(): Boolean {
-  // The check happens at **runtime**, but the value was hard-coded by webpack
+  // The check happens at **runtime**, but the value is hard-coded by webpack
   return js("process.env.NODE_ENV") == "development"
 }

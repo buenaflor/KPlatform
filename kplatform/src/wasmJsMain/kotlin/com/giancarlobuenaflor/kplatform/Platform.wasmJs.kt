@@ -2,8 +2,7 @@ package com.giancarlobuenaflor.kplatform
 
 private fun getUserAgent(): String = js("navigator.userAgent")
 
-// The check happens at **runtime**, but the value was hard-coded by webpack
-private fun getIsDevelopment(): Boolean = js("process.env.NODE_ENV")
+private fun getNodeEnv(): String = js("process.env.NODE_ENV")
 
 
 internal actual fun getOperatingSystemString(): String {
@@ -89,5 +88,6 @@ internal actual fun getEnvironmentMap(): Map<String, String> {
 }
 
 internal actual fun getIsDebug(): Boolean {
-  return getIsDevelopment()
+  // The check happens at **runtime**, but the value is hard-coded by webpack
+  return getNodeEnv() == "development"
 }
