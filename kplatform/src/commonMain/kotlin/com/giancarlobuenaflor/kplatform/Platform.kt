@@ -201,13 +201,3 @@ public sealed class OperatingSystem(public val family: Family, public val versio
 
   override fun toString(): String = "$family $version"
 }
-
-internal expect fun getOperatingSystemString(): String
-
-internal expect fun getOperatingSystemVersionString(): String
-
-internal expect fun getCompilationTarget(): CompilationTarget
-
-internal expect fun getEnvironmentMap(): Map<String, String>
-
-internal expect fun getIsDebug(): Boolean

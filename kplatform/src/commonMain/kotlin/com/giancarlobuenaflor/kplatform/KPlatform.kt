@@ -25,20 +25,12 @@ public class KPlatform : Platform {
     get() = getIsDebug()
 }
 
-public fun test() {
-  val platform = KPlatform()
+internal expect fun getOperatingSystemString(): String
 
-  when (platform.operatingSystem) {
-    is OperatingSystem.Windows -> {}
-    else -> {}
-  }
+internal expect fun getOperatingSystemVersionString(): String
 
-  when (platform.compilationTarget) {
-    CompilationTarget.ANDROID -> {
-      // Execute Android
-    }
-    CompilationTarget.JS -> {}
+internal expect fun getCompilationTarget(): CompilationTarget
 
-    else -> println("Unknown")
-  }
-}
+internal expect fun getEnvironmentMap(): Map<String, String>
+
+internal expect fun getIsDebug(): Boolean
