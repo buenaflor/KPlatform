@@ -59,6 +59,11 @@ public interface Platform {
   public val operatingSystem: OperatingSystem
 
   /**
+   * Returns true if binary was compiled in debug mode.
+   */
+  public val isDebug: Boolean
+
+  /**
    * The environment for this process.
    *
    * The returned environment is a read-only map.
@@ -207,3 +212,5 @@ internal expect fun getOperatingSystemVersionString(): String
 internal expect fun getCompilationTarget(): CompilationTarget
 
 internal expect fun getEnvironmentMap(): Map<String, String>
+
+internal expect fun getIsDebug(): Boolean

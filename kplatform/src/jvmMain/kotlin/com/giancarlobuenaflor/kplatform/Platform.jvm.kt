@@ -19,3 +19,8 @@ internal actual fun getCompilationTarget(): CompilationTarget {
 internal actual fun getEnvironmentMap(): Map<String, String> {
   return System.getenv()
 }
+
+internal actual fun getIsDebug(): Boolean {
+  // JVM does not differentiate between debug and release builds.
+  return true
+}

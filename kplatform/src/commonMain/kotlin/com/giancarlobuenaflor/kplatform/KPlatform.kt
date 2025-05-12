@@ -20,6 +20,9 @@ public class KPlatform : Platform {
 
   override val environment: Map<String, String>
     get() = getEnvironmentMap()
+
+  override val isDebug: Boolean
+    get() = getIsDebug()
 }
 
 public fun test() {

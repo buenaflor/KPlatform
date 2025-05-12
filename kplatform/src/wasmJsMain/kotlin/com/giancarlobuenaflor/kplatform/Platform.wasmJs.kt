@@ -1,10 +1,10 @@
 package com.giancarlobuenaflor.kplatform
 
-private fun getNodeOperatingSystem(): String = js("process.platform")
-
-private fun getNodeOperatingSystemVersion(): String = js("process.version")
-
 private fun getUserAgent(): String = js("navigator.userAgent")
+
+// The check happens at **runtime**, but the value was hard-coded by webpack
+private fun getIsDevelopment(): Boolean = js("process.env.NODE_ENV")
+
 
 internal actual fun getOperatingSystemString(): String {
   val userAgent = getUserAgent()
@@ -86,4 +86,8 @@ internal actual fun getCompilationTarget(): CompilationTarget {
 internal actual fun getEnvironmentMap(): Map<String, String> {
   // No env for
   return emptyMap()
+}
+
+internal actual fun getIsDebug(): Boolean {
+  return getIsDevelopment()
 }

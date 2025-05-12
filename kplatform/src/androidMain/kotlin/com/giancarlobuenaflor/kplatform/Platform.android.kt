@@ -15,3 +15,7 @@ internal actual fun getCompilationTarget(): CompilationTarget {
 internal actual fun getEnvironmentMap(): Map<String, String> {
   return System.getenv()
 }
+
+internal actual fun getIsDebug(): Boolean {
+  return BuildConfig.DEBUG
+}
