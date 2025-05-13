@@ -119,8 +119,8 @@ public enum class CompilationTarget(public val targetName: String) {
   }
 }
 
-/** Enumeration of runtime operating systems. */
-public sealed class OperatingSystem(public val family: Family, public val version: String) {
+/** Representation of runtime operating system associated with the version. */
+public data class OperatingSystem(public val family: Family, public val version: String) {
   public enum class Family(private val displayName: String) {
     ANDROID("Android"),
     IOS("iOS"),
@@ -134,22 +134,6 @@ public sealed class OperatingSystem(public val family: Family, public val versio
     /** Returns a human-readable name for this family. */
     override fun toString(): String = displayName
   }
-
-  public class Android(version: String) : OperatingSystem(Family.ANDROID, version)
-
-  public class Ios(version: String) : OperatingSystem(Family.IOS, version)
-
-  public class MacOs(version: String) : OperatingSystem(Family.MACOS, version)
-
-  public class TvOs(version: String) : OperatingSystem(Family.TVOS, version)
-
-  public class WatchOs(version: String) : OperatingSystem(Family.WATCHOS, version)
-
-  public class Linux(version: String) : OperatingSystem(Family.LINUX, version)
-
-  public class Windows(version: String) : OperatingSystem(Family.WINDOWS, version)
-
-  public class Unknown(version: String) : OperatingSystem(Family.UNKNOWN, version)
 
   public val isAndroid: Boolean
     get() = family == Family.ANDROID
@@ -172,6 +156,10 @@ public sealed class OperatingSystem(public val family: Family, public val versio
   public val isWindows: Boolean
     get() = family == Family.WINDOWS
 
+  override fun toString(): String {
+    return "$family $version"
+  }
+
   public companion object {
     /**
      * Build an [OperatingSystem] from the raw strings returned by the platform-specific `expect`
@@ -179,29 +167,14 @@ public sealed class OperatingSystem(public val family: Family, public val versio
      */
     public fun from(osName: String, version: String): OperatingSystem =
         when (osName.lowercase()) {
-          "android" -> Android(version)
-          "ios" -> Ios(version)
-          "macos" -> MacOs(version)
-          "tvos" -> TvOs(version)
-          "watchos" -> WatchOs(version)
-          "linux" -> Linux(version)
-          "windows" -> Windows(version)
-          else -> Unknown(version)
-        }
-
-    /** Convenience method to build an [OperatingSystem] from a [Family] and a version string. */
-    public fun from(family: Family, version: String): OperatingSystem =
-        when (family) {
-          Family.ANDROID -> Android(version)
-          Family.IOS -> Ios(version)
-          Family.MACOS -> MacOs(version)
-          Family.TVOS -> TvOs(version)
-          Family.WATCHOS -> WatchOs(version)
-          Family.LINUX -> Linux(version)
-          Family.WINDOWS -> Windows(version)
-          else -> Unknown(version)
+          "android" -> OperatingSystem(Family.ANDROID, version)
+          "ios" -> OperatingSystem(Family.IOS, version)
+          "macos" -> OperatingSystem(Family.MACOS, version)
+          "tvos" -> OperatingSystem(Family.TVOS, version)
+          "watchos" -> OperatingSystem(Family.WATCHOS, version)
+          "linux" -> OperatingSystem(Family.LINUX, version)
+          "windows" -> OperatingSystem(Family.WINDOWS, version)
+          else -> OperatingSystem(Family.UNKNOWN, version)
         }
   }
-
-  override fun toString(): String = "$family $version"
 }

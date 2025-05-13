@@ -2,7 +2,7 @@ import com.giancarlobuenaflor.kplatform.KPlatform
 import com.giancarlobuenaflor.kplatform.OperatingSystem
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertIs
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class PlatformTest {
@@ -25,13 +25,13 @@ class PlatformTest {
     val simulatorDeviceName = environment["SIMULATOR_DEVICE_NAME"]
     if (simulatorDeviceName != null) {
       if (simulatorDeviceName.contains("iPhone")) {
-        assertIs<OperatingSystem.Ios>(operatingSystem)
+        assertEquals(OperatingSystem.Family.IOS, operatingSystem.family)
       }
       if (simulatorDeviceName.contains("Apple TV")) {
-        assertIs<OperatingSystem.TvOs>(operatingSystem)
+        assertEquals(OperatingSystem.Family.TVOS, operatingSystem.family)
       }
       if (simulatorDeviceName.contains("Apple Watch")) {
-        assertIs<OperatingSystem.WatchOs>(operatingSystem)
+        assertEquals(OperatingSystem.Family.WATCHOS, operatingSystem.family)
       }
     }
 
@@ -40,13 +40,13 @@ class PlatformTest {
     }
 
     if (targetName == "android") {
-      assertIs<OperatingSystem.Android>(operatingSystem)
+      assertEquals(OperatingSystem.Family.ANDROID, operatingSystem.family)
     } else {
       if (osName.contains("ubuntu")) {
-        assertIs<OperatingSystem.Linux>(operatingSystem)
+        assertEquals(OperatingSystem.Family.LINUX, operatingSystem.family)
       }
       if (osName.contains("macos")) {
-        assertIs<OperatingSystem.MacOs>(operatingSystem)
+        assertEquals(OperatingSystem.Family.MACOS, operatingSystem.family)
       }
     }
   }
