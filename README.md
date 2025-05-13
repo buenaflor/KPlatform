@@ -82,26 +82,28 @@ You can use a switch as well.
 ```kotlin
 val platform = KPlatform()
 
-when (platform.operatingSystem) {
-  is OperatingSystem.Android -> {
-    // Execute Android specific code
+when (platform.operatingSystem.family) {
+  OperatingSystem.Family.WINDOWS -> {
+    // Execute this code block only on Windows
   }
-  is OperatingSystem.Ios -> {
-    // Execute iOS specific code
+  OperatingSystem.Family.LINUX -> {
+    // Execute this code block only on Linux
   }
   else -> {
-    // do something else
+    // Do something else
   }
 }
 
 when (platform.compilationTarget) {
   CompilationTarget.ANDROID -> {
-    // Execute Android specific code
+    // Execute this code block only for Android builds
   }
   CompilationTarget.JS -> {
-    // Execute JS specific code
+    // Execute this code block only for JS builds
   }
-  else -> println("Unknown")
+  else -> {
+      // Do something else
+  }
 }
 ```
 
