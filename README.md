@@ -102,7 +102,7 @@ when (platform.compilationTarget) {
     // Execute this code block only for JS builds
   }
   else -> {
-      // Do something else
+    // Do something else
   }
 }
 ```
