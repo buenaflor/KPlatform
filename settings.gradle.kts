@@ -18,3 +18,5 @@ dependencyResolutionManagement {
 rootProject.name = "kplatform-root"
 
 include(":kplatform")
+
+include(":sample:composeApp")
